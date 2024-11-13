@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Classification</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1c1c1c;
+            color: #ecf0f1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Aligns container to the top of the screen */
+            min-height: 100vh;
+            overflow-y: auto; /* Allows scrolling if content overflows */
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            background-color: #2c3e50;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styling */
+        input[type="file"] {
+            padding: 10px;
+            background-color: #34495e;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            margin: 10px 0;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        input[type="file"]:hover {
+            background-color: #2c3e50;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        /* Loading Animation */
+        .loading {
+            margin: 20px;
+            display: none;
+            font-size: 1.2em;
+            color: #f39c12;
+        }
+
+        .loading span {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Result Section */
+        .result {
+            margin-top: 40px;
+        }
+
+        .result h2 {
+            color: #e74c3c;
+        }
+
+        .result p {
+            font-size: 1.2em;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .image-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Ensure image does not overflow */
+        }
+
+        .image-container h3 {
+            color: #3498db;
+        }
+
+        .image-container img {
+            max-width: 100%; /* Fits image within container width */
+            max-height: 60vh; /* Limits image height to 60% of viewport height */
+            border-radius: 10px;
+            border: 5px solid #3498db;
+            object-fit: contain;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 15px;
+                width: 90%;
+            }
+
+            input[type="submit"] {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Brain Tumor Classification</h1>
+
+        <!-- Form to upload an image -->
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <input type="submit" value="Upload and Predict">
+        </form>
+
+        <!-- Loading animation when prediction is processing -->
+        <div class="loading">
+            <span>🔄 Processing...</span>
+        </div>
+
+        <!-- Display the result and uploaded image if prediction exists -->
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction Result:</h2>
+            <p>{{ prediction }}</p>
+
+            <div class="image-container">
+                <h3>Uploaded Image:</h3>
+                <img src="{{ url_for('static', filename='uploaded_images/' + image_path) }}" alt="Uploaded Image">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        const loadingElement = document.querySelector('.loading');
+
+        form.addEventListener('submit', function() {
+            loadingElement.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

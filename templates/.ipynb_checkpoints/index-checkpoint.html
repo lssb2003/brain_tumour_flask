@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Classification</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1c1c1c; /* Dark black background for a sleek, modern look */
+            color: #ecf0f1; /* Light greyish text for contrast */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #2c3e50; /* Dark blue-grey for the container background */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #3498db; /* Bright blue for the title for a fresh, professional look */
+            margin-bottom: 20px;
+        }
+
+        /* Form Styling */
+        input[type="file"] {
+            padding: 10px;
+            background-color: #34495e; /* Dark blue-grey for file input */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        input[type="file"]:hover {
+            background-color: #2c3e50; /* Slightly darker blue-grey on hover */
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #3498db; /* Bright blue for submit button */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
+
+        /* Result Section */
+        .result {
+            margin-top: 40px;
+        }
+
+        .result h2 {
+            color: #e74c3c; /* Coral red for the result heading */
+        }
+
+        .result p {
+            font-size: 1.2em;
+            color: #3498db; /* Blue for result text */
+            font-weight: bold;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container h3 {
+            color: #3498db; /* Blue for image heading */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 5px solid #3498db; /* Blue border around the image */
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 15px;
+                width: 90%;
+            }
+
+            input[type="submit"] {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Brain Tumor Classification</h1>
+
+        <!-- Form to upload an image -->
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <input type="submit" value="Upload and Predict">
+        </form>
+
+        <!-- Display the result and uploaded image if prediction exists -->
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction Result:</h2>
+            <p>{{ prediction }}</p>
+
+            <div class="image-container">
+                <h3>Uploaded Image:</h3>
+                <!-- Use url_for to dynamically refer to the uploaded image -->
+                <img src="{{ url_for('static', filename='uploaded_images/' + image_path) }}" alt="Uploaded Image">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
