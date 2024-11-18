@@ -102,24 +102,29 @@
             font-weight: bold;
         }
 
-        .image-container {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; /* Ensure image does not overflow */
+        /* Image Container Styling */
+        .image-container img {
+            width: 100%;        /* Makes the image take up the full width of the container */
+            height: auto;       /* Maintains the aspect ratio of the image */
+            max-width: 500px;   /* Limit the maximum width of the image */
+            max-height: 400px;  /* Limit the maximum height of the image */
+            border-radius: 10px;
+            border: 5px solid #3498db;
+            object-fit: contain; /* Ensures the image fits without distortion */
         }
+
 
         .image-container h3 {
             color: #3498db;
+            margin-bottom: 10px; /* Adds space between the image and the heading */
         }
 
         .image-container img {
-            max-width: 100%; /* Fits image within container width */
-            max-height: 60vh; /* Limits image height to 60% of viewport height */
+            max-width: 100%;  /* Allow image to scale with container width */
+            max-height: 60vh; /* Limit image height to 60% of the viewport height */
             border-radius: 10px;
             border: 5px solid #3498db;
-            object-fit: contain;
+            object-fit: contain;  /* Ensures image fits inside the container without distortion */
         }
 
         /* Responsive Design */
@@ -135,6 +140,11 @@
 
             input[type="submit"] {
                 font-size: 1em;
+            }
+
+            .image-container img {
+                max-width: 100%; /* Adjust image width for smaller screens */
+                max-height: 50vh; /* Limit the image height for smaller screens */
             }
         }
     </style>
