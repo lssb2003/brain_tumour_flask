@@ -1,0 +1,7 @@
+# Ignore large model file
+best_model.pth
+
+# Ignore other large files or unnecessary directories
+datasets/
+images/
+
